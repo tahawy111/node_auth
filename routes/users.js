@@ -20,7 +20,7 @@ router.post("/register", (req, res) => {
     errors.push({ msg: "Please Fill in all Feilds" });
 
   // Check password match
-  if (password !== password2) errors.push({ msg: "password do not match" });
+  if (password !== password2) errors.push({ msg: "passwords does not match" });
 
   // Check pass length
   if (password.length < 6)
@@ -31,7 +31,7 @@ router.post("/register", (req, res) => {
   } else {
     res.send("pass");
   }
-  console.log(req.body);
+  console.log(errors);
 });
 
 module.exports = router;
