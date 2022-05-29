@@ -36,7 +36,7 @@ router.post("/register", (req, res) => {
     User.findOne({ email: email }).then((user) => {
       // User exists
       if (user) {
-        errors.push({ msg: "Email is already registerd" });
+        errors.push({ msg: "Email is already registered" });
         res.render("register", { errors, name, email, password, password2 });
       } else {
         const newUser = new User({
@@ -53,12 +53,20 @@ router.post("/register", (req, res) => {
             // Set password hashed
             newUser.password = hash;
 
+            // Save user
             newUser
               .save()
               .then(() => {
+                req.flash(
+                  "success_msg",
+                  "You are now registered and can login"
+                );
                 res.redirect("/users/login");
               })
-              .catch((err) => console.log(err));
+              .catch((err) => {
+                req.flash("error_msg", "There is a proplem in the registration operation");
+                console.log(err);
+              });
           })
         );
       }
