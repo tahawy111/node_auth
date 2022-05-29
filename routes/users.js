@@ -10,5 +10,10 @@ router.get("/login", (req, res) => {
 router.get("/register", (req, res) => {
   res.render("register");
 });
+// Register  Handle
+router.post("/register", (req, res) => {
+  const { name, email, password, password2 } = req.body;
+  let errors = [];
+});
 
 module.exports = router;
