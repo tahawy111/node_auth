@@ -29,7 +29,7 @@ router.post("/register", (req, res) => {
   if (errors.length > 0) {
     res.render("register", { errors, name, email, password, password2 });
   } else {
-    res.send("pass");
+    // Validation Passed
   }
   console.log(errors);
 });
