@@ -1,27 +1,29 @@
-// App Sittings
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
+const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
-// app sittings
-
-// Passport Sittings
-
-// Middlewares
-
-// Routes
-app.use("/", require("./routes/index"));
-app.use("/users", require("./routes/users"));
-
-// EJS
-app.use(expressLayouts);
-app.set("view engine", "ejs");
+const bodyParser = require("body-parser");
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.set("view engine", "ejs");
 
 // Static Folders
 app.use(express.static("public"));
 
-// End Middlewares
+// Router
+app.use("/", require("./routes/index"));
+app.use("/users", require("./routes/users"));
+
+// DB Config
+const db = require("./config/keys").MongoURI;
+mongoose
+  .connect(db)
+  .then(() => {
+    console.log("DB Connected...");
+  })
+  .catch((err) => console.log(err));
 
 // Start Server
 app.listen(PORT, () => {
