@@ -2,11 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-
-// Login  Page
-router.get("/login", (req, res) => {
-  res.render("login");
-});
+const passport = require("passport");
 
 // Register  Page
 router.get("/register", (req, res) => {
@@ -64,7 +60,6 @@ router.post("/register", (req, res) => {
                 res.redirect("/users/login");
               })
               .catch((err) => {
-                req.flash("error_msg", "There is a proplem in the registration operation");
                 console.log(err);
               });
           })
@@ -72,6 +67,20 @@ router.post("/register", (req, res) => {
       }
     });
   }
+});
+
+// Login  Page
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
+// Login Handle
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/users/login",
+    failureFlash: true,
+  })(req, res, next);
 });
 
 module.exports = router;
