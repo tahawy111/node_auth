@@ -3,7 +3,6 @@ const app = express();
 const passport = require("passport");
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
-const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const session = require("express-session");
@@ -12,7 +11,6 @@ const session = require("express-session");
 require("./config/passport")(passport);
 
 // EJS
-app.use(expressLayouts);
 app.set("view engine", "ejs");
 
 // BodyParser
