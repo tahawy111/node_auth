@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(
   session({
     secret: "mmbkjmgstel 56756245ff kgjlo[few@75449.clhl.d",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   })
 );
